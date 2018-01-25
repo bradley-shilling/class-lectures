@@ -19,6 +19,7 @@ public class Lecture {
 		
 		/* The "put" method is used to add elements to a Map */
 		nameToZip.put("David", "44120");
+		nameToZip.put("Joe", "44805");
 		nameToZip.put("Dan", "44124");
 		nameToZip.put("Elizabeth", "44012");
 		
@@ -35,6 +36,8 @@ public class Lecture {
 			
 		}
 		System.out.println();
+		
+		
 		
 		System.out.println("put 12345 for key David\n");
 		nameToZip.put("David", "12345");  // The key "David" already exists, so this line will overwrite the existing value with the new value
