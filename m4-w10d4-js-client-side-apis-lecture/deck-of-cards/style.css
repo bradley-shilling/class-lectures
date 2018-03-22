@@ -1,0 +1,29 @@
+body {
+    font-family: 'Tahoma', serif;
+    font-size: 16px;
+    background-color: #FFF;
+    margin: 0px;
+}
+
+#draw {
+    display: block;
+    margin: 10px auto;
+    font-size: 1rem;
+    text-align: center;    
+}
+
+#cards {
+    text-align: center;
+}
+
+#cards img {
+    height: 200px;
+}
+
+.hidden {
+    display: none;
+}
+
+#remaining {
+    text-align: center;
+}
