@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Deck of Cards</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+
+<body>
+
+    <button id="draw" onclick="draw()">DRAW</button>
+
+    <div id="cards">
+
+    </div>
+
+    <p id="remaining" class="hidden">There are <span class="placeholder"></span> cards remaining</p>
+    
+
+    <!-- 
+        1. When I click DRAW I call the API to create a new deck and draw a card. The drawn card
+            is then displayed in the #cards div
+        2. When I click DRAW, if I have already created a new deck, I draw another card from the existing deck.
+        3. When I click DRAW, the number of cards remaining is updated.
+        4. When I reload the page, the existing deck is used.
+    -->
+
+</body>
+
+</html>
