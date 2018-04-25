@@ -1,47 +1,62 @@
 -- ********* INNER JOIN ***********
 
 -- Let's find out who made payment 16666:
-SELECT * 
+SELECT *
 FROM payment
-WHERE payment_id = 16666
+WHERE payment_id = 16666;
 
 -- Ok, that gives us a customer_id, but not the name. We can use the customer_id to get the name FROM the customer table
-SELECT *
-FROM payment JOIN customer ON payment.customer_id = customer.customer_id
-WHERE payment_id = 16666
+SELECT * 
+FROM payment
+Join customer ON payment.customer_id = customer.customer_id
+WHERE payment_id = 16666;
 
 -- We can see that the * pulls back everything from both tables. We just want everything from payment and then the first and last name of the customer:
-SELECT payment.*, customer.first_name, customer.last_name 
-FROM payment JOIN customer ON payment.customer_id = customer.customer_id
-WHERE payment_id = 16666
+SELECT payment.*, customer.first_name, customer.last_name
+FROM payment 
+JOIN customer ON payment.customer_id = customer.customer_id
+WHERE payment_id = 16666;
 
 -- But when did they return the rental? Where would that data come from? From the rental table, so let’s join that.
-SELECT payment.*, customer.first_name, customer.last_name, rental.return_date 
-FROM payment JOIN customer ON payment.customer_id = customer.customer_id
+SELECT payment.*, rental.return_date, customer.first_name, customer.last_name  
+FROM payment 
+JOIN customer ON payment.customer_id = customer.customer_id
 JOIN rental ON rental.rental_id = payment.rental_id
-WHERE payment_id = 16666
+WHERE payment_id = 16666;
 
 -- What did they rent? Film id can be gotten through inventory.
 SELECT payment.*, customer.first_name, customer.last_name, rental.return_date, film.title 
-FROM payment JOIN customer ON payment.customer_id = customer.customer_id
+FROM payment 
+JOIN customer ON payment.customer_id = customer.customer_id
 JOIN rental ON rental.rental_id = payment.rental_id
 JOIN inventory ON inventory.inventory_id = rental.inventory_id
 JOIN film ON film.film_id = inventory.film_id
-WHERE payment_id = 16666
+WHERE payment_id = 16666;
 
--- What if we wanted to know who acted in that film?    
-SELECT film.title, array_agg(actor.first_name || ' ' || actor.last_name) AS actors FROM film
-JOIN film_actor ON film_actor.film_id = film.film_id
-JOIN actor ON actor.actor_id = film_actor.actor_id
-WHERE film.film_id=948
-GROUP BY film.film_id
+-- What if we wanted to know who acted in that film?  
+SELECT payment.*, customer.first_name, customer.last_name, rental.return_date, film.title, actor.first_name, actor.last_name 
+FROM payment 
+JOIN customer ON payment.customer_id = customer.customer_id
+JOIN rental ON rental.rental_id = payment.rental_id
+JOIN inventory ON inventory.inventory_id = rental.inventory_id
+JOIN film ON film.film_id = inventory.film_id
+JOIN film_actor ON film.film_id = film_actor.film_id
+JOIN actor ON film_actor.actor_id = actor.actor_id
+WHERE payment_id = 16666;  
+
 
 -- What if we wanted a list of all the films and their categories ordered by film title
 SELECT f.title, c.name 
-FROM film f 
-JOIN film_category fc ON f.film_id=fc.film_id 
-JOIN category c ON c.category_id=fc.category_id 
+FROM film AS f 
+JOIN film_category AS fc ON f.film_id=fc.film_id 
+JOIN category AS c ON c.category_id=fc.category_id 
 ORDER BY f.title;
+
+SELECT film.title, category.name
+FROM film
+JOIN film_category ON film.film_id = film_category.film_id 
+JOIN category ON category.category_id = film_category.category_id 
+ORDER BY film.title;
 
 -- Show all the 'Comedy' films ordered by film title
 SELECT f.title, c.name 
@@ -51,6 +66,15 @@ JOIN category c ON c.category_id=fc.category_id
 WHERE c.name='Comedy' 
 ORDER BY f.title;
 
+
+SELECT film.title, category.name
+FROM film
+JOIN film_category ON film.film_id = film_category.film_id 
+JOIN category ON category.category_id = film_category.category_id 
+WHERE category.name='Comedy' 
+ORDER BY film.title;
+
+
 -- Finally, let's count the number of films under each category
 SELECT c.name, COUNT(c.name) 
 FROM film f 
@@ -58,6 +82,14 @@ JOIN film_category fc ON f.film_id=fc.film_id
 JOIN category c ON c.category_id=fc.category_id 
 GROUP BY c.name 
 ORDER BY c.name;
+
+
+SELECT category.name, COUNT(category.name) AS number_of_films
+FROM film
+JOIN film_category ON film.film_id = film_category.film_id 
+JOIN category ON category.category_id = film_category.category_id 
+GROUP BY category.category_id 
+ORDER BY number_of_films DESC;
 
 
 -- ********* LEFT JOIN ***********
@@ -70,6 +102,10 @@ ORDER BY c.name;
 SELECT c.name, ci.name
 FROM country c
 join city ci ON c.capital = ci.id
+
+SELECT country.name, city.name
+FROM country
+join city ON country.capital = city.id
 
 -- Only 232 rows
 -- But we’re missing entries:

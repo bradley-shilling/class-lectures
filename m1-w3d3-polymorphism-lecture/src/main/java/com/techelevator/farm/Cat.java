@@ -2,19 +2,22 @@ package com.techelevator.farm;
 
 import java.math.BigDecimal;
 
-public class Cow extends Animal {
-	public Cow() {
+public final class Cat extends Animal {
+	public Cat() {
 		setPrice(new BigDecimal("65.00"));
+		
 
 	}
-
 	@Override
 	public String getName() {
-		return "Cow";
+		return "Cat";
 	}
 
 	@Override
 	public String makeSound() {
-		return "moo!";
+		// TODO Auto-generated method stub
+		return "meooooooooow!";
 	}
+	
+	
 }

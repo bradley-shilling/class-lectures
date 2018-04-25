@@ -12,14 +12,15 @@ public class RTNValidator {
 
 		printApplicationBanner();
 		
-		File inputFile = getInputFileFromUser();
-		try(Scanner fileScanner = new Scanner(inputFile)) {
-			while(fileScanner.hasNextLine()) {
-				String line = fileScanner.nextLine();
-				String rtn = line.substring(0, 9);
+		File inputFile = getInputFileFromUser(); // return path to file as file object
+		
+		try(Scanner fileScanner = new Scanner(inputFile)) { // opens file in try block and closes the file after reading
+			while(fileScanner.hasNextLine()) { // while has next line
+				String line = fileScanner.nextLine(); // read next line and store as string
+				String rtn = line.substring(0, 9); // get first 10 char of string
 				
-				if(checksumIsValid(rtn) == false) {
-					System.out.println(line);
+				if(checksumIsValid(rtn) == false) { // check if rtn is valid
+					System.out.println(line); // print line 
 				}
 			}
 		}

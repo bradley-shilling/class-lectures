@@ -16,7 +16,7 @@ public class SpringJDBCExample {
 		BasicDataSource dvdstoreDataSource = new BasicDataSource();
 		dvdstoreDataSource.setUrl("jdbc:postgresql://localhost:5432/dvdstore");
 		dvdstoreDataSource.setUsername("postgres");
-		dvdstoreDataSource.setPassword("postgres1");
+		//dvdstoreDataSource.setPassword("postgres1");
 		
 		/* The JdbcTemplate is the main interface we use to interact with databases using
 		 * Spring JDBC. */
@@ -41,18 +41,33 @@ public class SpringJDBCExample {
 			System.out.println(filmTitle+" ("+releaseYear+")");
 		}
 		
+		
+		
+		
 		/* use the "update" method to run INSERT, UPDATE, and DELETE statements */
 		String sqlCreateActor = "INSERT INTO actor(actor_id, first_name, last_name) "+
 								"VALUES (?, ?, ?)";
+		/* update */
+		String sqlUpdateActor = "UPDATE actor set first_name=? WHERE last_name=?";
+		
+		
+		/* add actor to serailized PK */
+		String sqlMakeActor = "INSERT INTO actor(first_name, last_name) "+
+				"VALUES (?, ?) RETURNING actor_id";
+		/* return new PK for serial*/
+		int newID = dvdstoreJdbcTemplate.queryForObject(sqlMakeActor, Integer.class, "Joe", "Erickson");
+		System.out.println(newID);
+		
 		
 		dvdstoreJdbcTemplate.update(sqlCreateActor, 1000, "Craig", "Castelaz");
+		dvdstoreJdbcTemplate.update(sqlUpdateActor, "Awesome Craig", "Castelaz");
 		
 		/* The next example makes use of the world database, so we need a new 
 		 * DataSource for creating connections to that database. */
 		BasicDataSource worldDataSource = new BasicDataSource();
 		worldDataSource.setUrl("jdbc:postgresql://localhost:5432/world");
 		worldDataSource.setUsername("postgres");
-		worldDataSource.setPassword("postgres1");
+		//worldDataSource.setPassword("postgres1");
 		
 		/* The JdbcTemplate is the main interface we use to interact with databases using
 		 * Spring JDBC. */

@@ -13,13 +13,20 @@ SELECT name, continent FROM country ORDER BY continent ASC, name ASC
 -- The name and average life expectancy of the countries with the 10 highest life expectancies.
 
 -- Postgres
-/*
 SELECT name, lifeexpectancy 
 FROM country 
 WHERE lifeexpectancy IS NOT NULL 
 ORDER BY lifeexpectancy DESC 
 LIMIT 10;
-*/
+
+
+
+--Offset
+SELECT name, lifeexpectancy 
+FROM country 
+WHERE lifeexpectancy IS NOT NULL 
+ORDER BY lifeexpectancy DESC 
+LIMIT 10 OFFSET 20;
 
 -- SQL
 /*
@@ -37,12 +44,18 @@ ORDER BY lifeexpectancy DESC;
 -- "city, state", sorted by state then city
 
 -- Postgres
-/*
+
 SELECT (name || ', ' || district) as name_and_state 
 FROM city 
 WHERE district='California' OR district='Oregon' OR district='Washington' 
 ORDER BY district, name;
-*/
+
+--or
+SELECT CONCAT(name, ', ', district) as name_and_state 
+FROM city 
+WHERE district='California' OR district='Oregon' OR district='Washington' 
+ORDER BY district, name;
+
 
 -- SQL
 /*
@@ -64,14 +77,17 @@ SELECT SUM(population) FROM city WHERE district = 'Ohio';
 -- The surface area of the smallest country in the world
 SELECT MIN(surfacearea) FROM country;
 
+-- Subselect
+SELECT name FROM country WHERE surfacearea = (SELECT MIN(surfacearea) FROM country);
+
 -- The 10 largest countries in the world
 -- Postgres
---SELECT * FROM country ORDER BY surfacearea DESC LIMIT 10;
+SELECT * FROM country ORDER BY surfacearea DESC LIMIT 10;
 -- SQL
 --SELECT TOP 10 * FROM country ORDER BY surfacearea DESC
 
 -- The number of countries who declared independence in 1991
-SELECT COUNT(*) FROM country;
+SELECT COUNT(*) FROM country WHERE indepyear = 1991;
 
 
 
@@ -80,16 +96,22 @@ SELECT COUNT(*) FROM country;
 select language, count(countrycode) as countries from countrylanguage group by language order by countries desc;
 
 -- Average life expectancy of each continent ordered from highest to lowest
-select continent, avg(lifeexpectancy) as avg_lifeexpectancy from country group by continent order by avg_lifeexpectancy desc;
+select continent, avg(lifeexpectancy) as avg_lifeexpectancy from country
+WHERE lifeexpectancy IS NOT NULL
+group by continent order by avg_lifeexpectancy desc;
 
 -- Exclude Antarctica from consideration for average life expectancy
 select continent, avg(lifeexpectancy) as avg_lifeexpectancy from country where continent <> 'Antarctica' group by continent order by avg_lifeexpectancy desc;
 
 -- Sum of the population of cities in each state in the USA ordered by state name
-select district, sum(population) from city where countrycode='USA' group by district order by district;
+select district, sum(population) from city 
+where countrycode='USA' 
+group by district order by district;
 
 -- The average population of cities in each state in the USA ordered by state name
-select district, avg(population) from city where countrycode='USA' group by district order by district;
+select district, avg(population) from city 
+where countrycode='USA' 
+group by district order by district;
 
 
 -- Additional samples

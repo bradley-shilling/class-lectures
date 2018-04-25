@@ -2,26 +2,23 @@ package com.techelevator.farm;
 
 import java.math.BigDecimal;
 
-public class Chicken extends Animal {
+public class Pig extends Animal {
 	
-	public Chicken() {
-		setPrice(new BigDecimal("3.50"));
-	}
-	
-	public void layEgg() {
-		System.out.println("Chicken laid an egg!");
+	public Pig() { // create new pig constructor
+		setPrice(new BigDecimal("10.00"));
+
 	}
 
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "Chicken";
+		return "Pig";
 	}
 
 	@Override
 	public String makeSound() {
 		// TODO Auto-generated method stub
-		return "cluck!";
+		return "oink!";
 	}
 
 }

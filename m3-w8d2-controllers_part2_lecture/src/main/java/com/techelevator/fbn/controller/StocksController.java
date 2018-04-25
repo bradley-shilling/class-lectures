@@ -41,7 +41,7 @@ public class StocksController {
 	@RequestMapping(path={"/stockPurchase"}, method=RequestMethod.POST)
 	public String buyStock(@RequestParam String ticker, @RequestParam int shares){
 		System.out.println("You bought " + shares + " shares of " + ticker + "!");
-		return "fbn/stocksLandingPage";
+		return "redirect:/fbn/stocks"; // add redirect on purchase
 	}
 	
 	private List<Stock> getStocks() {

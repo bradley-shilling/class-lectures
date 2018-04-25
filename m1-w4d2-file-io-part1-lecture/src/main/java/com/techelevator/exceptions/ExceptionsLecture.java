@@ -48,14 +48,14 @@ public class ExceptionsLecture {
 			int overtimeHours = hoursWorked - 40;
 			System.out.println("You worked "+overtimeHours+" hours of overtime.");
 		} catch(Exception e) { // If a NumberFormatException is thrown by Integer.valueOf(...) it will be caught here since NumberFormatException "is-a" Exception
-			System.out.println("You did it wrong...");
+			System.out.println("You did it wrong..." + e.getMessage());
 		}
 		System.out.println();
 				
 		/* we can throw our own Exceptions in response to exceptional cases 
 		 * see the source code of calculateHotelRoomCharges for an example */
-		int nights = -3;
-		int numberOfGuests = 2;
+		int nights = 6;
+		int numberOfGuests = 60;
 		try {
 			double amountOwed = calculateHotelRoomCharges(nights, numberOfGuests);
 			System.out.println("Total owed for "+numberOfGuests+" guests for "+nights+" nights is $"+amountOwed);
@@ -80,7 +80,7 @@ public class ExceptionsLecture {
 		System.out.println();
 		
 		/* if we try to call the withdraw method outside of a try/catch, it will cause a compiler error */
-		//withdraw(currentBalance, amountToWithdraw);
+		// withdraw(currentBalance, amountToWithdraw);
 		
 				
 		/* every Exception contains a "stacktrace" that can be extremely useful in debugging.

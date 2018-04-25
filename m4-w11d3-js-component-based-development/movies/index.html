@@ -13,16 +13,31 @@
 </head>
 <body>
     <div class="container">
+        
 
         <!-- This is where we want our content -->
+        <div class="row">
+            <movie-search></movie-search>
+        </div>
+        <div class="row">
+            <movie-list></movie-list>
+        </div>
 
     </div>
 
     
     <script src="https://rawgit.com/riot/riot/master/riot%2Bcompiler.min.js"></script>
-
+    <script src="movieSearch.tag" type="riot/tag"></script>
+    <script src="movieList.tag" type="riot/tag"></script>
     <script>
         /* This is where we include our components */
+        let bus = {};
+
+        riot.observable(bus);
+
+        riot.mount('movie-search', {'bus': bus});
+        riot.mount('movie-list', {'bus': bus});
+
     </script>
 </body>
 </html>

@@ -21,10 +21,22 @@
             this.user.username = this.root.querySelector('input[name=username]').value;
             this.user.email = this.root.querySelector('input[name=email]').value;
 
-            this.user = null;
-            this.update();
+            // pass user data on to api
+            fetch (`http://localhost:8080/UserRestApi/users/${this.user.id}?name=${this.user.name}&email=${this.user.email}&username=${this.user.username}`, {method: 'PUT'})
+                .then((response) => {
+                    
+                        opts.bus.trigger('userSaved');
+                        this.user = null;
+                        this.update();
+                        opts.bus.trigger('newMessage', "User successfully saved!");
+                        console.log("true");
+                    
+                })
+                .catch((response) => {
+                    console.log("Something went horribly wrong!");
+                })
 
-            opts.bus.trigger('newMessage', "User successfully saved!");
+            
             return false;
         }
     </script>

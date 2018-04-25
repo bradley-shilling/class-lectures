@@ -13,8 +13,10 @@ public class ReserveAuction extends Auction {
 	 * @param description the description of the auction
 	 * @param reservePrice the minimum sale price
 	 */
-	public ReserveAuction(String itemForSale, int reservePrice) {
-		super(itemForSale);
+	
+	//create new constructor
+	public ReserveAuction(String itemForSale, int reservePrice) { // add reserved price
+		super(itemForSale); //jump over to superclass and run that constructor
 		this.reservePrice = reservePrice;
 	}
 
@@ -23,7 +25,7 @@ public class ReserveAuction extends Auction {
 	 * If the offeredBid does not meet or exceed the reserve price, the bid
 	 * is ignored.
 	 */
-	@Override
+	@Override // documentation - over riding a method declared by  superclass
 	public boolean placeBid(Bid offeredBid) {
 		boolean isCurrentWinningBid = false;
 		if(offeredBid.getBidAmount() >= reservePrice) {

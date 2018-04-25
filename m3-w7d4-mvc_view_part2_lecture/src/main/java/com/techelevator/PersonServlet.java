@@ -14,10 +14,11 @@ public class PersonServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<Person> personList = new ArrayList<Person>();
-		personList.add(new Person("Mike", "Mazzullo", 21));
+		personList.add(new Person("Mike", "Posner", 21));
 		personList.add(new Person("Asher", "Díaz", 22));
 		personList.add(new Person("Sondra", "Coffin", 23));
 		personList.add(new Person("Jeff", "Prescott", 12));
+		personList.add(new Person("Stinky", "Pete", 129));
 
 		req.setAttribute("personList", personList);
 		

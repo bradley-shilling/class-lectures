@@ -9,20 +9,14 @@
 </head>
 <body>
     <div class="container">
-        <div id="deck" class="row">
-            <button id="new-deck">Create Deck</button><span id="deck-id"></span>
-        </div>
-        <div id="draw" class="row"><button id="draw-card">DRAW!</button></div>
-        <table id="drawn-cards" class="table">
-
-                <tr>
-                    <th>Suit</th>
-                    <th>Rank</th>
-                    <th>Image</th>
-                </tr>
-
-        </table>
+        <card-list></card-list>
     </div>
-    <script type="text/javascript" src="script.js"></script>
+    <!-- include riot library -->
+    <script src="https://rawgit.com/riot/riot/master/riot%2Bcompiler.min.js"></script>
+    <script src="cardList.tag" type="riot/tag"></script>
+
+    <script>
+        riot.mount('card-list');
+    </script>
 </body>
 </html>

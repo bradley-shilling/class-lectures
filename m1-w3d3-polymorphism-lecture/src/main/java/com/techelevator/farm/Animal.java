@@ -1,22 +1,40 @@
 package com.techelevator.farm;
 
-public class Animal {
-	private String name;
-	private String sound;
+import java.math.BigDecimal;
+
+public abstract class Animal implements Singable, Sellable {
+	private BigDecimal price;
+	private boolean isSleeping;
 	
-	public String getName( ) {
-		return name;
+	public abstract String getName();
+	public abstract String makeSound();
+
+
+	
+	//logic in super class will be applied to information passed along from subclass
+	public final String getSound( ) {//prevents subclasses from overwritting method
+		if (isSleeping) {
+			return"Zzzzzz...";
+		} else {
+		return makeSound();
+		}
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getSound( ) {
-		return sound;
+
+	public BigDecimal getPrice() {
+		return price;
 	}
 
-	public void setSound(String sound) {
-		this.sound = sound;
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	public final boolean isSleeping() { // cant be overridden
+		return isSleeping;
+	}
+
+	public final void setSleeping(boolean isSleeping) { // cant be overridden
+		this.isSleeping = isSleeping;
 	}
 	
 }

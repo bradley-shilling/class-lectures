@@ -26,14 +26,14 @@ public class BuyoutAuction extends Auction {
 	 */
 	@Override
 	public boolean placeBid(Bid offeredBid) {
-		boolean isCurrentWinningBid = false;
-		if(getHighBid().getBidAmount() < buyoutPrice) {
-			if(offeredBid.getBidAmount() >= buyoutPrice) {
-				offeredBid = new Bid(offeredBid.getBidder(), buyoutPrice);
+		boolean isCurrentWinningBid = false; // set winning bid to false
+		if(getHighBid().getBidAmount() < buyoutPrice) { // if current hight bid is less than  buyout price
+			if(offeredBid.getBidAmount() >= buyoutPrice) { // is offered bid greater than or equal to buyout price
+				offeredBid = new Bid(offeredBid.getBidder(), buyoutPrice); // set bid to buyout price if higher
 			}
-			isCurrentWinningBid = super.placeBid(offeredBid);
+			isCurrentWinningBid = super.placeBid(offeredBid); // pass bid to super class
 		}
-		return isCurrentWinningBid;
+		return isCurrentWinningBid; // return if the bid is a winning bid
 	}
 
 	public int getBuyoutPrice() {

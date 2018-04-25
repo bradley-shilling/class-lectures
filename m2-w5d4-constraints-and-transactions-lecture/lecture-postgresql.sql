@@ -47,7 +47,7 @@ select * from countrylanguage where language='Englon';
  -- We can could do `language='Klingon' or language='Klinglish'`. 
  -- We might even do something daring, `'language LIKE 'Kling%'`, and remove the rows with a wildcard LIKE.  
  -- BETWEEN n AND n+1` is also a really handy technique for deleting rows within a range of values, such numeric keys.
-delete from countrylanguage
+DELETE from countrylanguage
 where language='Klingon' or language='Klinglish';
 
 
@@ -85,6 +85,8 @@ set isofficial=false, percentage=4
 where countrycode='USA' and language='Klingon';
 
 COMMIT;
+
+ROLLBACK;
 
 
 -- Confirm the commited transaction took place.

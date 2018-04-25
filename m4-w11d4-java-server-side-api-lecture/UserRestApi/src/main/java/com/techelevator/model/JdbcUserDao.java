@@ -33,7 +33,7 @@ public class JdbcUserDao implements UserDao {
 	@Override
 	public List<User> getAllUsers() {
 		List<User> users = new ArrayList<>();
-		String sqlGetUser = "SELECT * from users";
+		String sqlGetUser = "SELECT * from users ORDER by id";
 		SqlRowSet set = jdbcTemplate.queryForRowSet(sqlGetUser);
 		while(set.next()){
 			users.add(mapRowToUser(set));
@@ -50,10 +50,10 @@ public class JdbcUserDao implements UserDao {
 	}
 
 	@Override
-	public void saveUser(User user) {
+	public boolean saveUser(User user) {
 		String sqlUpdateUser = "UPDATE users SET name=?, username=?, email=? WHERE id = ?";
-		jdbcTemplate.update(sqlUpdateUser, user.getName(), user.getUsername(), user.getEmail(), user.getId());
-
+		int rowsAffected = jdbcTemplate.update(sqlUpdateUser, user.getName(), user.getUsername(), user.getEmail(), user.getId());
+		return rowsAffected == 1; 
 	}
 	
 	private User mapRowToUser(SqlRowSet row) {

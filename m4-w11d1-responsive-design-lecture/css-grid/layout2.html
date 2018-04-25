@@ -16,20 +16,39 @@
 
         .wrapper {
             background-color: #FFFFFF;
+            display:grid;
+            grid-gap: 10px;
+            grid-template-rows: auto;
+
         }
 
         @media (min-width: 768px) {
             .wrapper {
+                grid-template-columns: 1fr 3fr 1fr;
+                grid-template-areas: 
+                '. subheading . '
+                'nav content aside';
             }
         }
 
         @media (max-width: 767px) { 
             .wrapper {
+                grid-template-columns:  2fr 1fr;
+                grid-template-areas: 
+                'subheading .'
+                'aside nav'
+                'content nav';
             }
         }
 
         @media (max-width: 480px) { 
             .wrapper {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                grid-template-areas: 
+                'nav'
+                'subheading'
+                'content';
             }
 
             aside {
@@ -42,15 +61,20 @@
         }
 
         .subheading {
+            grid-area: subheading;
         }
 
         nav {
+            grid-area: nav;
         }
 
         main {
+            grid-area: content;
         }
 
         aside {
+            grid-area: aside;
+            color:red; 
         }
 
         nav ul {

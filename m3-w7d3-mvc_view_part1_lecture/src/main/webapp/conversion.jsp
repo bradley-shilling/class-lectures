@@ -96,7 +96,7 @@ library --%>
 				</c:if>
 				<tr class="${rowClassAttribute}">
 					<td><c:out value="${feet}" /></td> 
-					<td><c:out vaule="${feet * .3048}" /></td>
+					<td><c:out value="${feet * .3048}" /></td>
 				</tr>	
 			</c:forEach>
 		</table>

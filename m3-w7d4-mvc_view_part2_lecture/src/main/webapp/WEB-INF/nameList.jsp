@@ -8,6 +8,10 @@
 	<body>
 		<ol>
 			<!-- Print out all names from nameList -->
+			<c:forEach  var="name" items="${nameList}">
+				<li><c:out value="${name}" /></li>
+			</c:forEach>
+			
 		</ol>
 	</body>
 </html>

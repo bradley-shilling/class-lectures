@@ -19,31 +19,25 @@
     <script>
         this.users = [];
 
-        this.on('mount', () => {
-            this.users = [
-                {
-                    name: 'Jon',
-                    email: 'jonny@boy.com',
-                    username: 'jonjon'
-                },
-                {
-                    name: 'Barb',
-                    email: 'barb@barb.com',
-                    username: 'barb'
-                },
-                {
-                    name: 'Joe',
-                    email: 'joe@jerickson.net',
-                    username: 'joe'
-                }
-            ];
-            this.update();
-        });
+        
+
+        this.pullUsers = function() {
+            fetch('http://localhost:8080/UserRestApi/users')
+            .then((response) => response.json())
+            .then((json) => {
+                this.users = json;
+                this.update();
+            });
+        }
 
         this.selectUser = function(event) {
             let selectedUser = event.item;
             opts.bus.trigger('userSelected', selectedUser);
 
         }
+
+        this.on('mount', this.pullUsers);
+
+        opts.bus.on('userSaved', this.pullUsers);
     </script>
 </user-list>

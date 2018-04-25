@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class Lecture {
 
@@ -107,6 +108,35 @@ public class Lecture {
 		System.out.println("name: "+newFile.getName());
 		System.out.println("absolutePath: "+newFile.getAbsolutePath());
 		System.out.println("size : "+newFile.length());
+		
+		
+		
+		
+		
+		
+		File addressFile = getInputFileFromUser();
+		
+		String geocodedFileName = addressFile.getAbsolutePath();
+		File geocodedFile = new File(geocodedFileName + ".geo");
+		
+		GeoCoder geocoder = new GeoCoder();
+		
+		
+		try(
+				Scanner addressReader = new Scanner (addressFile); // open file
+				PrintWritter geocodeWriter = new PrintWriter(geocodedFile); // write to file
+				) {
+			while(addressReader.hasNextLine()) {
+				String address = addressReader.nextLine();
+				
+				GeoLocstion location = geocoder.find(address);
+				
+				geocodeWriter.println(address + " , " + location);
+			}
+			
+		} catch (FileNotFoundException ex) {
+			System.out.println("File not found!"); // tells user the file is unable to be located
+		}
 		
 	}
 
